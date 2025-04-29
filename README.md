@@ -35,5 +35,18 @@ O ruído Gaussiano é adicionado aos dados de entrada utilizando a camada Gaussi
 
 # from tensorflow.keras.layers import Dense, Flatten, Dropout, GaussianNoise
 
-# Adicionar ruído Gaussiano na entrada - isso ajuda na robustez
+ Adicionar ruído Gaussiano na entrada - isso ajuda na robustez
         GaussianNoise(noise_stddev, input_shape=(28, 28)),
+
+
+Nesse trabalho o foco foi a diferenciação entre os resultados das batchs tendo os testes sendo realizados em batchs de [16, 32, 128, 512, 2048, 8192, 32768] com 10 epocas e a taxa de noise de 0,3 que é o mais padrão modificando a imagem original não tanto a ponto de se tornar quase impossivel de identificar o algarismo.
+
+os codigos mais relacionados a essas funções são:
+
+ - A função create_model(noise_stddev=0.3), que define a arquitetura da rede neural, aplicando a camada GaussianNoise logo na entrada, seguida de duas camadas densas com ativação ReLU e regularização por dropout.
+
+ - A função train_and_evaluate_model(batch_size, epochs=10, noise_stddev=0.3), responsável por treinar o modelo com diferentes tamanhos de batch e registrar o histórico de treinamento para análise posterior.
+
+ - A função plot_learning_curves(histories, batch_sizes), que gera gráficos comparativos entre a acurácia e a perda de validação de cada batch size utilizado, permitindo uma visualização clara das diferenças de desempenho.
+
+Na parte de verificação temos o teste do batch 32 que se provou o mais efetivo tanto em acuracia quanto do tempo nescessario para treina-lo ele pega 50 numeros aleatorios e faz a verificação comparando a previsão e o real valor do numero.
